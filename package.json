@@ -4,6 +4,8 @@
   "description": "Simple NodeJS application to control a warehouse robot",
   "main": "src/index.ts",
   "scripts": {
+    "start": "tsc && node dist/index.js",
+    "quick-start": "npx ts-node src/index.ts",
     "test": "jest",
     "test:watch": "jest --watch"
   },
@@ -17,5 +19,8 @@
     "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.3"
+  },
+  "dependencies": {
+    "@inquirer/prompts": "^4.3.0"
   }
 }

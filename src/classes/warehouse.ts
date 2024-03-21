@@ -1,4 +1,4 @@
-import crypto from "crypto";
+import * as crypto from "crypto";
 import {Bounds} from "../types/asset-interfaces";
 import {WarehouseInterface} from "../types/asset-interfaces";
 
@@ -19,6 +19,7 @@ export class Warehouse implements WarehouseInterface {
         this.id = crypto.randomUUID();
         this.width = width || 10;
         this.height = height || 10;
+        console.log(`Warehouse created with id: ${this.id}, width: ${this.width}, height: ${this.height}`);
     }
 
     /**

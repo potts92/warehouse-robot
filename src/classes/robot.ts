@@ -27,6 +27,7 @@ export class Robot implements RobotInterface {
         this.x_position = xPosition;
         this.y_position = yPosition;
         this.bounds = warehouse.getBounds();
+        console.log(`Robot created at position: ${this.x_position}, ${this.y_position} in warehouse: ${warehouse.getID()}`);
     }
 
     /**
