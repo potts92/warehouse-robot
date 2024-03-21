@@ -4,6 +4,7 @@
   "description": "Simple NodeJS application to control a warehouse robot",
   "main": "src/index.ts",
   "scripts": {
+    "install": "npm install",
     "start": "tsc && node dist/index.js",
     "quick-start": "npx ts-node src/index.ts",
     "test": "jest",

@@ -1,11 +1,13 @@
 import {Robot as RobotInterface, RobotPosition} from "../types/asset-interfaces";
 import {Warehouse} from "./warehouse";
+import crypto from "crypto";
 
 /**
  * Represents a robot
  */
 export class Robot implements RobotInterface {
     warehouse: Warehouse;
+    id: string;
     x_position: number;
     y_position: number;
     bounds: { x: number, y: number };
@@ -26,6 +28,7 @@ export class Robot implements RobotInterface {
         this.warehouse = warehouse;
         this.x_position = xPosition;
         this.y_position = yPosition;
+        this.id = crypto.randomUUID();
         this.bounds = warehouse.getBounds();
         console.log(`Robot created at position: ${this.x_position}, ${this.y_position} in warehouse: ${warehouse.getID()}`);
     }
