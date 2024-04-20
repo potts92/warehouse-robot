@@ -4,7 +4,7 @@
 - Node installed on your system
 
 ### Installation
-1. ```npm run install```
+1. ```npm install```
 
 ## Usage
 ### Run tests
