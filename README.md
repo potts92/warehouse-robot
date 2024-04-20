@@ -22,8 +22,14 @@ Run jest tests with:
 - [Warehouse](src/classes/warehouse.ts) class to handle the creation of the warehouse
   - Generates a UUID to identify the warehouse to allow for potential future expansion to handle multiple warehouses
   - Stores its width and height and allows public access to these values via getters
-- [Robot](src/classes/robot.ts) class to handle the creation of the robot and to provide methods to move the robot around the warehouse. Errors if the robot is moved or installed outside the warehouse bounds
+  - Stores the locations of crates in the warehouse (with stringified coordinates as keys for easy collision detection)
+- [Robot](src/classes/robot.ts) class to handle the creation of the robot and to provide methods to move the robot around the warehouse and grab and drop crates. Errors if the robot is moved or installed outside the warehouse bounds
   - Generates a UUID to identify the warehouse to allow for potential future expansion to handle multiple robots
   - Stores its current location in terms of x and y coordinates
   - Stores its warehouse's width and height
+  - Stores the crate it is currently holding
   - Publicly reports its current location
+  - Capable of grabbing, moving and dropping crates
+- [Crate](src/classes/crate.ts) class to handle the creation of crates
+  - Generates a UUID to identify the warehouse to allow for potential future expansion to handle multiple crates
+  - Stores its current location in terms of x and y coordinates

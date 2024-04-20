@@ -23,6 +23,8 @@ export class Scenario {
      */
     private async createScenario() {
         const warehouse = await this.createWarehouse();
+        //add crates in middle and north-east positions (handle odd numbers for middle)
+        this.initCrates(warehouse);
 
         return {warehouse, robot: await this.createRobot(warehouse)};
     }
@@ -47,6 +49,22 @@ export class Scenario {
 
         //Initialise the warehouse with the provided dimensions
         return new Warehouse(parseInt(warehouseWidth), parseInt(warehouseHeight));
+    }
+
+    /**
+     * add crates in middle and north-east positions (handle odd numbers for middle)
+     * @param warehouse
+     * @private
+     */
+    public initCrates(warehouse: Warehouse) {
+        const bounds = warehouse.getBounds();
+        const middleX = Math.floor(bounds.x / 2);
+        const middleY = Math.floor(bounds.y / 2);
+        const northEastX = bounds.x;
+        const northEastY = bounds.y;
+
+        warehouse.addCrate(middleX, middleY);
+        warehouse.addCrate(northEastX, northEastY);
     }
 
     /**
@@ -84,12 +102,15 @@ export class Scenario {
 
         if (furtherCommands.toLowerCase() === 'y') {
             const action = await input({
-                message: 'Designate the action to be performed (M to move robot again, S to start again):'
+                message: 'Designate the action to be performed (M to interact with robot, S to start again):'
             });
 
             if (action.toLowerCase() === 'm') await this.moveRobotPrompt(robot);
             else if (action.toLowerCase() === 's') await this.runApp();
-            else console.error('Invalid action');
+            else {
+                console.error('Invalid action');
+                await this.awaitFurtherCommands(robot);
+            }
         }
     }
 
@@ -100,12 +121,16 @@ export class Scenario {
     private async moveRobotPrompt(robot: Robot) {
         //Prompt for the robot's commands
         const commands = await input({
-            message: 'Enter the robot commands (e.g. N N E S W):'
+            message: 'Enter the robot commands (e.g. N, E, S and W to move according to compass, G to grab, D to drop):'
         });
 
-        //Execute the robot's commands
-        robot.robotInput(commands);
-        console.log(robot.reportPosition());
+        try {
+            //Execute the robot's commands
+            robot.robotInput(commands);
+            console.log(robot.reportPosition());
+        } catch (e: any) {
+            console.error(e.message);
+        }
 
         //Prompt for further commands
         await this.awaitFurtherCommands(robot);
